@@ -1,3 +1,5 @@
+using CqrsExample.Application.Carts.Queries;
+using CqrsExample.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,18 +9,22 @@ namespace CqrsExample.Api.Controllers
     [ApiController]
     public class CartsController : ControllerBase
     {
-        private readonly ISender _mediatr;
+        private ISender Mediatr => HttpContext.RequestServices.GetRequiredService<ISender>();
 
-        public CartsController()
-        {
-            _mediatr = HttpContext.RequestServices.GetRequiredService<ISender>();
-        }
-        
         [HttpGet]
         [Route("{cartId}")]
         public IActionResult GetCart([FromRoute] string cartId)
         {
-            return Ok();
+            try
+            {
+                var result = Mediatr.Send(new GetCartByIdQuery(cartId)).GetAwaiter().GetResult();
+            
+                return Ok(result);
+            }
+            catch (CartNotFoundException e)
+            {
+                return NotFound();
+            }
         }
     }
 }

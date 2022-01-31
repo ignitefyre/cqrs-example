@@ -5,8 +5,15 @@ namespace CqrsExample.Infrastructure.Carts;
 
 public class CartRepository : ICartRepository
 {
+    private readonly CartData _cart;
+
+    public CartRepository(string initialCartId)
+    {
+        _cart = new CartData(initialCartId);
+        
+    }
     public Cart GetById(string id)
     {
-        throw new NotImplementedException();
+        return _cart.Id == id ? new Cart(_cart.Id) : null;
     }
 }

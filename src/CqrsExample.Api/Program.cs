@@ -4,8 +4,12 @@ using CqrsExample.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var initialCartId = Guid.NewGuid().ToString();
+
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(initialCartId);
+
+Console.WriteLine("Generating a new cart id: {0}", initialCartId);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

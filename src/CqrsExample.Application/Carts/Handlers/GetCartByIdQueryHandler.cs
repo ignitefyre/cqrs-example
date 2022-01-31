@@ -1,4 +1,5 @@
 using CqrsExample.Application.Carts.Queries;
+using CqrsExample.Domain.Exceptions;
 using MediatR;
 
 namespace CqrsExample.Application.Carts.Handlers;
@@ -14,6 +15,11 @@ public class GetCartByIdQueryHandler : IRequestHandler<GetCartByIdQuery, CartDto
     
     public Task<CartDto> Handle(GetCartByIdQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var result = _cartRepository.GetById(request.Id);
+
+        if (result == null)
+            throw new CartNotFoundException();
+
+        return Task.FromResult(new CartDto(result.Id));
     }
 }

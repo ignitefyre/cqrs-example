@@ -6,9 +6,9 @@ namespace CqrsExample.Infrastructure;
 
 public static class DependencyInstallers
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, string initialCartId)
     {
-        services.AddSingleton<ICartRepository, CartRepository>();
+        services.AddSingleton<ICartRepository>(new CartRepository(initialCartId));
         
         return services;
     }
