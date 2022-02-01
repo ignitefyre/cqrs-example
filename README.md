@@ -4,7 +4,7 @@ our reads from our write operations for a data store. Here we separate these con
 our gains on performance, scalability and security needs while also assisting in the evolution of an
 application.
 
-###3 Principals
+### 3 Principals
 1. Commands should be task based, rather than data centric. 
    - Add Item to Cart, Remove Item from Cart, Update Item Quantity
 2. Commands may be placed on a queue for asynchronous processing, rather than being processed synchronously.
