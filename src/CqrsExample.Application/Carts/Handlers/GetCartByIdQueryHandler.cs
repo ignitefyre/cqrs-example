@@ -20,6 +20,8 @@ public class GetCartByIdQueryHandler : IRequestHandler<GetCartByIdQuery, CartDto
         if (result == null)
             throw new CartNotFoundException();
 
-        return Task.FromResult(new CartDto(result.Id));
+        var items = result.GetItems().Select(x => new CartItemDto(x.Id, x.Quantity)).ToList();
+
+        return Task.FromResult(new CartDto(result.Id, items));
     }
 }

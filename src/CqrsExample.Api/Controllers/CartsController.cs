@@ -1,3 +1,4 @@
+using CqrsExample.Application.Carts.Commands;
 using CqrsExample.Application.Carts.Queries;
 using CqrsExample.Domain.Exceptions;
 using MediatR;
@@ -21,7 +22,23 @@ namespace CqrsExample.Api.Controllers
             
                 return Ok(result);
             }
-            catch (CartNotFoundException e)
+            catch (CartNotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost]
+        [Route("{cartId}/items")]
+        public IActionResult AddItem([FromRoute] string cartId)
+        {
+            try
+            {
+                var result = Mediatr.Send(new AddItemCommand("ABC", 1, cartId)).GetAwaiter().GetResult();
+            
+                return Ok(result);
+            }
+            catch (CartNotFoundException)
             {
                 return NotFound();
             }

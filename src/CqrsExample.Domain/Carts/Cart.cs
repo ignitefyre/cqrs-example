@@ -3,19 +3,29 @@ namespace CqrsExample.Domain.Carts;
 public class Cart : AggregateRoot
 {
     public Cart(string id) : base(id) { }
-    
-    private ICollection<CartItem> _items { get; } = new List<CartItem>();
 
-    public void AddItem(CartItem item)
+    public Cart(string id, ICollection<CartItem> items) : base(id)
     {
-        _items.Add(item);
+        Items = items;
+    }
+    
+    private ICollection<CartItem> Items { get; } = new List<CartItem>();
+
+    public void AddItem(string productId, int quantity)
+    {
+        Items.Add(new CartItem(productId, quantity));
+    }
+
+    public IEnumerable<CartItem> GetItems()
+    {
+        return Items;
     }
 }
 
 public class CartItem
 {
     public string Id { get; }
-    public int Quantity { get; internal set; }
+    public int Quantity { get; private set; }
 
     public CartItem(string id, int quantity)
     {

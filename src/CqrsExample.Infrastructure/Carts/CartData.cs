@@ -7,4 +7,6 @@ public class CartData
         Id = initialCartId;
     }
     public string Id { get; }
+
+    public ICollection<CartItemData> Items { get; set; } = new List<CartItemData>();
 }

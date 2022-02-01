@@ -4,5 +4,7 @@ namespace CqrsExample.Application;
 
 public interface IRepository<T> where T : AggregateRoot
 {
-    T GetById(string id);
+    T? GetById(string id);
+
+    void Update(T entity);
 }
