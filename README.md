@@ -9,8 +9,9 @@ application.
    - Add Item to Cart, Remove Item from Cart, Update Item Quantity
 2. Commands may be placed on a queue for asynchronous processing, rather than being processed synchronously.
 3. Queries never modify the database. A query returns a DTO that does not encapsulate any domain knowledge.
-  - Puts us in a better place to isolate our models
-  - Helps ensure single responsibility
+
+- Puts us in a better place to isolate our models
+- Helps ensure single responsibility
 
 ----
 
