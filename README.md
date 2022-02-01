@@ -12,7 +12,7 @@ application.
   - Puts us in a better place to isolate our models
   - Helps ensure single responsibility
 
-<hr>
+----
 
 The diagram below represents the separations in each write and read channel respectively.
 
