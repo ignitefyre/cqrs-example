@@ -16,6 +16,13 @@ public class Cart : AggregateRoot
         Items.Add(new CartItem(productId, quantity));
     }
 
+    public void UpdateItemQuantity(string productId, int quantity)
+    {
+        var item = Items.FirstOrDefault(x => x.Id == productId);
+
+        item?.UpdateQuantity(quantity);
+    }
+
     public IEnumerable<CartItem> GetItems()
     {
         return Items;

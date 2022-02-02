@@ -43,5 +43,21 @@ namespace CqrsExample.Api.Controllers
                 return NotFound();
             }
         }
+        
+        [HttpPatch]
+        [Route("{cartId}/items")]
+        public IActionResult UpdateItemQuantity([FromRoute] string cartId)
+        {
+            try
+            {
+                var result = Mediatr.Send(new UpdateItemQuantityCommand("ABC", 5, cartId)).GetAwaiter().GetResult();
+            
+                return Ok(result);
+            }
+            catch (CartNotFoundException)
+            {
+                return NotFound();
+            }
+        }
     }
 }
