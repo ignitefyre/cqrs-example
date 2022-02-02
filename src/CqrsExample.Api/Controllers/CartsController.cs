@@ -59,5 +59,21 @@ namespace CqrsExample.Api.Controllers
                 return NotFound();
             }
         }
+        
+        [HttpDelete]
+        [Route("{cartId}/items")]
+        public IActionResult RemoveItem([FromRoute] string cartId)
+        {
+            try
+            {
+                var result = Mediatr.Send(new RemoveItemCommand("ABC", cartId)).GetAwaiter().GetResult();
+            
+                return Ok(result);
+            }
+            catch (CartNotFoundException)
+            {
+                return NotFound();
+            }
+        }
     }
 }

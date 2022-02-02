@@ -23,6 +23,14 @@ public class Cart : AggregateRoot
         item?.UpdateQuantity(quantity);
     }
 
+    public void RemoveItem(string productId)
+    {
+        var item = Items.FirstOrDefault(x => x.Id == productId);
+
+        if (item != null)
+            Items.Remove(item);
+    }
+
     public IEnumerable<CartItem> GetItems()
     {
         return Items;
