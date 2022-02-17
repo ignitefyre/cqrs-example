@@ -34,7 +34,7 @@ namespace CqrsExample.Api.Controllers
         {
             try
             {
-                var result = Mediatr.Send(new AddItemCommand("ABC", 1, cartId)).GetAwaiter().GetResult();
+                var result = Mediatr.Send(new AddItemCommand("ABC", 0, cartId)).GetAwaiter().GetResult();
             
                 return Ok(result);
             }
