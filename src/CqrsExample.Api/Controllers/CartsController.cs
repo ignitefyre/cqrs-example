@@ -1,3 +1,4 @@
+using CqrsExample.Api.Models;
 using CqrsExample.Application.Carts.Commands;
 using CqrsExample.Application.Carts.Queries;
 using CqrsExample.Domain.Exceptions;
@@ -30,11 +31,13 @@ namespace CqrsExample.Api.Controllers
 
         [HttpPost]
         [Route("{cartId}/items")]
-        public IActionResult AddItem([FromRoute] string cartId)
+        public IActionResult AddItem([FromRoute] string cartId, [FromBody] AddItemRequest request)
         {
+            var (productId, quantity) = request;
+            
             try
             {
-                var result = Mediatr.Send(new AddItemCommand("ABC", 1, cartId)).GetAwaiter().GetResult();
+                var result = Mediatr.Send(new AddItemCommand(productId, quantity, cartId)).GetAwaiter().GetResult();
             
                 return Ok(result);
             }
@@ -45,12 +48,12 @@ namespace CqrsExample.Api.Controllers
         }
         
         [HttpPatch]
-        [Route("{cartId}/items")]
-        public IActionResult UpdateItemQuantity([FromRoute] string cartId)
+        [Route("{cartId}/items/{productId}")]
+        public IActionResult UpdateItemQuantity([FromRoute] string cartId, [FromRoute] string productId, [FromBody] UpdateItemQuantityRequest request)
         {
             try
             {
-                var result = Mediatr.Send(new UpdateItemQuantityCommand("ABC", 5, cartId)).GetAwaiter().GetResult();
+                var result = Mediatr.Send(new UpdateItemQuantityCommand(productId, request.Quantity, cartId)).GetAwaiter().GetResult();
             
                 return Ok(result);
             }
@@ -61,12 +64,12 @@ namespace CqrsExample.Api.Controllers
         }
         
         [HttpDelete]
-        [Route("{cartId}/items")]
-        public IActionResult RemoveItem([FromRoute] string cartId)
+        [Route("{cartId}/items/{productId}")]
+        public IActionResult RemoveItem([FromRoute] string cartId, [FromRoute] string productId)
         {
             try
             {
-                var result = Mediatr.Send(new RemoveItemCommand("ABC", cartId)).GetAwaiter().GetResult();
+                var result = Mediatr.Send(new RemoveItemCommand(productId, cartId)).GetAwaiter().GetResult();
             
                 return Ok(result);
             }
