@@ -22,8 +22,15 @@ public class UpdateItemQuantityCommandHandler : IRequestHandler<UpdateItemQuanti
         if (cart == null)
             throw new CartNotFoundException();
         
-        cart.UpdateItemQuantity(productId, quantity);
-
+        if (request.Quantity > 0)
+        {
+            cart.UpdateItemQuantity(productId, quantity);
+        }
+        else
+        {
+            cart.RemoveItem(request.ProductId);
+        }
+        
         _cartRepository.Update(cart);
 
         return Task.FromResult(true);
