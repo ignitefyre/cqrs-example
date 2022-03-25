@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsExample.Domain", "src\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsExample.Infrastructure", "src\CqrsExample.Infrastructure\CqrsExample.Infrastructure.csproj", "{D4606325-CABC-450A-9CC9-61D68F88BA5F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsExample.Domain.Tests", "tests\CqrsExample.Domain.Tests\CqrsExample.Domain.Tests.csproj", "{50676F28-BD29-437F-8F87-88868187836F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsExample.Application.Tests", "tests\CqrsExample.Application.Tests\CqrsExample.Application.Tests.csproj", "{5922F87E-0D5B-427E-BF36-F7A6DAC980FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{D4606325-CABC-450A-9CC9-61D68F88BA5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4606325-CABC-450A-9CC9-61D68F88BA5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4606325-CABC-450A-9CC9-61D68F88BA5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50676F28-BD29-437F-8F87-88868187836F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50676F28-BD29-437F-8F87-88868187836F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50676F28-BD29-437F-8F87-88868187836F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50676F28-BD29-437F-8F87-88868187836F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5922F87E-0D5B-427E-BF36-F7A6DAC980FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5922F87E-0D5B-427E-BF36-F7A6DAC980FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5922F87E-0D5B-427E-BF36-F7A6DAC980FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5922F87E-0D5B-427E-BF36-F7A6DAC980FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
