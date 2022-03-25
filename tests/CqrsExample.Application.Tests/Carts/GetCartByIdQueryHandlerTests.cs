@@ -10,7 +10,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 
-namespace CqrsExample.Application.Tests;
+namespace CqrsExample.Application.Tests.Carts;
 
 public class GetCartByIdQueryHandlerTests : TestBase
 {

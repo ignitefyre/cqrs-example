@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using CqrsExample.Application.Carts;
@@ -10,33 +9,30 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 
-namespace CqrsExample.Application.Tests;
+namespace CqrsExample.Application.Tests.Carts;
 
-public class RemoveItemCommandHandlerTests : TestBase
+public class AddItemCommandHandlerTests : TestBase
 {
     [Test]
-    public void ShouldRemoveItemFromTheCart()
+    public void ShouldAddItemToExistingCart()
     {
         //arrange
         const string cartId = "abc";
-        var cartItems = new List<CartItem>
-        {
-            new CartItem("123", 1)
-        };
-        var cart = new Cart(cartId, cartItems);
+        var cart = new Cart(cartId);
         
         var cartRepositoryMock = new Mock<ICartRepository>();
         cartRepositoryMock.Setup(x => x.GetById(cartId)).Returns(cart);
         
-        var sut = new RemoveItemCommandHandler(cartRepositoryMock.Object);
+        var sut = new AddItemCommandHandler(cartRepositoryMock.Object);
 
-        var request = new RemoveItemCommand("123", cartId);
-        
+        var request = new AddItemCommand("123", 1, cartId);
+
         //act
         var result = sut.Handle(request, CancellationToken.None);
-        
+
         //assert
-        cart.GetItems().Count().Should().Be(0);
+        cart.GetItems().Count().Should().Be(1);
+        cart.GetItems().First().Quantity.Should().Be(1);
         cartRepositoryMock.Verify(x => x.Update(cart), Times.Once);
     }
     
@@ -49,9 +45,9 @@ public class RemoveItemCommandHandlerTests : TestBase
         var cartRepositoryMock = new Mock<ICartRepository>();
         cartRepositoryMock.Setup(x => x.GetById(cartId)).Returns(default(Cart));
         
-        var sut = new RemoveItemCommandHandler(cartRepositoryMock.Object);
+        var sut = new AddItemCommandHandler(cartRepositoryMock.Object);
 
-        var request = new RemoveItemCommand("123", cartId);
+        var request = new AddItemCommand("123", 1, cartId);
 
         //act
         var result = () => sut.Handle(request, CancellationToken.None);

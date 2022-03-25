@@ -4,7 +4,7 @@ using CqrsExample.Domain.Carts;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CqrsExample.Domain.Tests;
+namespace CqrsExample.Domain.Tests.Carts;
 
 public class CartTests : TestBase
 {
