@@ -1,3 +1,5 @@
+using CqrsExample.Domain.Events;
+
 namespace CqrsExample.Domain.Carts;
 
 public class Cart : AggregateRoot
@@ -9,11 +11,15 @@ public class Cart : AggregateRoot
         Items = items;
     }
     
+    private readonly List<IEvent> _changes = new List<IEvent>();
+    
     private ICollection<CartItem> Items { get; } = new List<CartItem>();
 
     public void AddItem(string productId, int quantity)
     {
         Items.Add(new CartItem(productId, quantity));
+        
+        _changes.Add(new ItemAddedEvent(productId, quantity, Id));
     }
 
     public void UpdateItemQuantity(string productId, int quantity)
@@ -35,4 +41,9 @@ public class Cart : AggregateRoot
     {
         return Items;
     }
+    
+    public IEnumerable<IEvent> GetUncommittedChanges() {
+        return _changes;
+    }
+
 }

@@ -22,8 +22,10 @@ public class AddItemCommandHandlerTests : TestBase
         
         var cartRepositoryMock = new Mock<ICartRepository>();
         cartRepositoryMock.Setup(x => x.GetById(cartId)).Returns(cart);
-        
-        var sut = new AddItemCommandHandler(cartRepositoryMock.Object);
+
+        var eventRepositoryMock = new Mock<IEventRepository>();
+
+        var sut = new AddItemCommandHandler(cartRepositoryMock.Object, eventRepositoryMock.Object);
 
         var request = new AddItemCommand("123", 1, cartId);
 
@@ -45,7 +47,9 @@ public class AddItemCommandHandlerTests : TestBase
         var cartRepositoryMock = new Mock<ICartRepository>();
         cartRepositoryMock.Setup(x => x.GetById(cartId)).Returns(default(Cart));
         
-        var sut = new AddItemCommandHandler(cartRepositoryMock.Object);
+        var eventRepositoryMock = new Mock<IEventRepository>();
+        
+        var sut = new AddItemCommandHandler(cartRepositoryMock.Object, eventRepositoryMock.Object);
 
         var request = new AddItemCommand("123", 1, cartId);
 
